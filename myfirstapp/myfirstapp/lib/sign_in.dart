@@ -46,7 +46,9 @@ class _SignInState extends State<SignIn> {
             ),
             //const Spacer(),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                context.go("/screen1");
+              },
               style: TextButton.styleFrom(
                   foregroundColor: Colors.white,
                   backgroundColor: const Color.fromARGB(255, 40, 100, 42),
