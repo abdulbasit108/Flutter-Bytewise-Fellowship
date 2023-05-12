@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:photo_app/model/users.dart';
+import 'package:photo_app/screens/news_feed.dart';
 import 'package:photo_app/screens/sign_in_screen.dart';
 
 import '../utils/upload_dialog.dart';
@@ -82,7 +83,35 @@ class _FeedScreenState extends State<FeedScreen> {
                       });
                     },
                     icon: Icon(Icons.logout)),
-                title: Text('FEED'),
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text('HOME'),
+                    SizedBox(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 12.0, vertical: 5),
+                        decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.circular(8)),
+                        child: Row(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => NewsFeed()));
+                              },
+                              child: const IgnorePointer(
+                                  child: Text("Latest News")),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
                 backgroundColor: Color.fromRGBO(145, 131, 222, 1),
               ),
               floatingActionButton: FloatingActionButton(
@@ -113,29 +142,60 @@ class _FeedScreenState extends State<FeedScreen> {
                               .map((DocumentSnapshot document) {
                             Map<String, dynamic> data =
                                 document.data()! as Map<String, dynamic>;
-                            return Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    border: Border.all(width: 3),
-                                    borderRadius: BorderRadius.circular(20)),
-                                child: Column(
-                                  children: [
-                                    Image.network(
-                                      data['imageUrl'].toString(),
-                                      width: 300,
-                                      height: 300,
-                                      fit: BoxFit.fill,
+                            return Container(
+                              margin: EdgeInsets.all(12.0),
+                              padding: EdgeInsets.all(8.0),
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(12.0),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black12,
+                                      blurRadius: 3.0,
                                     ),
-                                    SizedBox(
-                                      height: 10,
+                                  ]),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    height: 200.0,
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                      //let's add the height
+
+                                      image: DecorationImage(
+                                          image: NetworkImage(data['imageUrl']),
+                                          fit: BoxFit.cover),
+                                      borderRadius: BorderRadius.circular(12.0),
                                     ),
-                                    Text('@' + data['user'].toString()),
-                                    SizedBox(
-                                      height: 10,
+                                  ),
+                                  SizedBox(
+                                    height: 8.0,
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.all(6.0),
+                                    decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.circular(30.0),
                                     ),
-                                  ],
-                                ),
+                                    child: Text(
+                                      "@" + data['user'],
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 8.0,
+                                  ),
+                                  // Text(
+                                  //   article.title,
+                                  //   style: TextStyle(
+                                  //     fontWeight: FontWeight.bold,
+                                  //     fontSize: 16.0,
+                                  //   ),
+                                ],
                               ),
                             );
                           }).toList(),

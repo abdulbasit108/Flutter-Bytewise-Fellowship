@@ -63,6 +63,7 @@ class _DialogBoxState extends State<DialogBox> {
                 onPressed: getImage,
                 child: Text('Insert Image'),
               ),
+              
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
