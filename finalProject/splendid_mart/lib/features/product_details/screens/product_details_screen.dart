@@ -1,13 +1,12 @@
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-
 
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:splendid_mart/common/widgets/custom_button.dart';
 import 'package:splendid_mart/common/widgets/stars.dart';
 import 'package:splendid_mart/constants/global_variables.dart';
+import 'package:splendid_mart/constants/utils.dart';
 import 'package:splendid_mart/features/product_details/services/product_details_services.dart';
 import 'package:splendid_mart/features/search/screens/search_screen.dart';
 import 'package:splendid_mart/models/product.dart';
@@ -57,6 +56,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       context: context,
       product: widget.product,
     );
+    showSnackBar(context, 'Added to Cart');
   }
 
   @override
@@ -197,7 +197,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   ),
                   children: [
                     TextSpan(
-                      text: '\$${widget.product.price}',
+                      text: 'PKR ${widget.product.price}',
                       style: const TextStyle(
                         fontSize: 22,
                         color: Colors.red,
@@ -215,13 +215,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
             Container(
               color: Colors.black12,
               height: 5,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10),
-              child: CustomButton(
-                text: 'Buy Now',
-                onTap: () {},
-              ),
             ),
             const SizedBox(height: 10),
             Padding(

@@ -3,7 +3,10 @@ import 'package:splendid_mart/constants/global_variables.dart';
 import 'package:splendid_mart/features/admin/screens/orders_screen.dart';
 import 'package:splendid_mart/features/admin/screens/posts_screen.dart';
 
+import '../../account/services/account_services.dart';
+
 class AdminScreen extends StatefulWidget {
+  static const String routeName = '/admin-screen';
   const AdminScreen({Key? key}) : super(key: key);
 
   @override
@@ -17,7 +20,6 @@ class _AdminScreenState extends State<AdminScreen> {
 
   List<Widget> pages = [
     const PostsScreen(),
-    
     const OrdersScreen(),
   ];
 
@@ -50,12 +52,22 @@ class _AdminScreenState extends State<AdminScreen> {
                   color: Colors.black,
                 ),
               ),
-              const Text(
-                'Admin',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
+              Row(
+                children: [
+                  const Text(
+                    'Admin',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  IconButton(
+                      onPressed: () => AccountServices().logOut(context),
+                      icon: Icon(
+                        Icons.logout,
+                        color: Colors.black,
+                      ))
+                ],
               )
             ],
           ),
@@ -91,7 +103,7 @@ class _AdminScreenState extends State<AdminScreen> {
             label: '',
           ),
           // ANALYTICS
-          
+
           // ORDERS
           BottomNavigationBarItem(
             icon: Container(

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -156,7 +155,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                           widget.order.orderedAt),
                     )}'),
                     Text('Order ID:          ${widget.order.id}'),
-                    Text('Order Total:      \$${widget.order.totalPrice}'),
+                    Text('Order Total:     PKR ${widget.order.totalPrice}'),
                   ],
                 ),
               ),
@@ -231,6 +230,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                       return CustomButton(
                         text: 'Done',
                         onTap: () => changeOrderStatus(details.currentStep),
+                        color: GlobalVariables.secondaryColor,
                       );
                     }
                     return const SizedBox();

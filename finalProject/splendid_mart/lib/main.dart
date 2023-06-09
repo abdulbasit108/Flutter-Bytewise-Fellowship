@@ -34,6 +34,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    var user = Provider.of<UserProvider>(context).user;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Amazon Clone',
@@ -51,8 +52,8 @@ class _MyAppState extends State<MyApp> {
         useMaterial3: true, // can remove this line
       ),
       onGenerateRoute: (settings) => generateRoute(settings),
-      home: Provider.of<UserProvider>(context).user.token.isNotEmpty
-          ? Provider.of<UserProvider>(context).user.type == 'user'
+      home: user.token.isNotEmpty
+          ? user.type == 'user'
               ? const BottomBar()
               : const AdminScreen()
           : const AuthScreen(),

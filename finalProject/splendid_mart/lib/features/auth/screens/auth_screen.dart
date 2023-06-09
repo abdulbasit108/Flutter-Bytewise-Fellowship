@@ -54,20 +54,48 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: GlobalVariables.greyBackgroundCOlor,
+      
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(50),
+        child: AppBar(
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+              gradient: GlobalVariables.appBarGradient,
+            ),
+          ),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                alignment: Alignment.topLeft,
+                child: Image.asset(
+                  'assets/images/amazon_in.png',
+                  width: 120,
+                  height: 45,
+                  color: Colors.black,
+                ),
+              ),
+              Row(
+                children: [
+                  const Text(
+                    'Welcome',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                'Welcome',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
               ListTile(
                 tileColor: _auth == Auth.signup
                     ? GlobalVariables.backgroundColor

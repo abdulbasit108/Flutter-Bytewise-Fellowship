@@ -1,14 +1,14 @@
-
 import 'package:flutter/material.dart';
 import 'package:pay/pay.dart';
 import 'package:provider/provider.dart';
+import 'package:splendid_mart/common/widgets/bottom_bar.dart';
+import 'package:splendid_mart/common/widgets/custom_button.dart';
 
 import '../../../common/widgets/custom_textfield.dart';
 import '../../../constants/global_variables.dart';
 import '../../../constants/utils.dart';
 import '../../../providers/user_provider.dart';
 import '../services/address_services.dart';
-
 
 class AddressScreen extends StatefulWidget {
   static const String routeName = '/address';
@@ -82,6 +82,22 @@ class _AddressScreenState extends State<AddressScreen> {
       address: addressToBeUsed,
       totalSum: double.parse(widget.totalAmount),
     );
+  }
+
+  void onCashOnDelivery() {
+    if (Provider.of<UserProvider>(context, listen: false)
+        .user
+        .address
+        .isEmpty) {
+      addressServices.saveUserAddress(
+          context: context, address: addressToBeUsed);
+    }
+    addressServices.placeOrder(
+      context: context,
+      address: addressToBeUsed,
+      totalSum: double.parse(widget.totalAmount),
+    );
+    Navigator.pushNamed(context, BottomBar.routeName);
   }
 
   void payPressed(String addressFromProvider) {
@@ -201,13 +217,22 @@ class _AddressScreenState extends State<AddressScreen> {
                 onPaymentResult: onGooglePayResult,
                 paymentItems: paymentItems,
                 height: 50,
-                
                 type: GooglePayButtonType.buy,
                 margin: const EdgeInsets.only(top: 15),
                 loadingIndicator: const Center(
                   child: CircularProgressIndicator(),
                 ),
               ),
+              SizedBox(
+                height: 10,
+              ),
+              CustomButton(
+                  text: "Cash on Delivery",
+                  color: Colors.yellow[600],
+                  onTap: () {
+                    payPressed(address);
+                    onCashOnDelivery();
+                  })
             ],
           ),
         ),

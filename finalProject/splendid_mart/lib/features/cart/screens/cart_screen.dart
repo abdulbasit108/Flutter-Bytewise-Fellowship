@@ -1,8 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:splendid_mart/common/widgets/custom_button.dart';
 import 'package:splendid_mart/constants/global_variables.dart';
+import 'package:splendid_mart/constants/utils.dart';
 import 'package:splendid_mart/features/cart/widgets/cart_product.dart';
 import 'package:splendid_mart/features/cart/widgets/cart_subtotal.dart';
 import 'package:splendid_mart/features/search/screens/search_screen.dart';
@@ -121,7 +121,13 @@ class _CartScreenState extends State<CartScreen> {
               padding: const EdgeInsets.all(8.0),
               child: CustomButton(
                 text: 'Proceed to Buy (${user.cart.length} items)',
-                onTap: () => navigateToAddress(sum),
+                onTap: () {
+                  if (user.cart.length > 0) {
+                    navigateToAddress(sum);
+                  } else {
+                    showSnackBar(context, 'Cart is Empty');
+                  }
+                },
                 color: Colors.yellow[600],
               ),
             ),

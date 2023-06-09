@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:splendid_mart/common/widgets/loader.dart';
 import 'package:splendid_mart/constants/global_variables.dart';
+import 'package:splendid_mart/features/account/screens/all_orders.dart';
 import 'package:splendid_mart/features/account/services/account_services.dart';
 import 'package:splendid_mart/features/account/widgets/single_product.dart';
 import 'package:splendid_mart/features/order_details/screens/order_details.dart';
@@ -54,10 +54,15 @@ class _OrdersState extends State<Orders> {
                     padding: const EdgeInsets.only(
                       right: 15,
                     ),
-                    child: Text(
-                      'See all',
-                      style: TextStyle(
-                        color: GlobalVariables.selectedNavBarColor,
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, AllOrders.routeName);
+                      },
+                      child: Text(
+                        'See all',
+                        style: TextStyle(
+                          color: GlobalVariables.selectedNavBarColor,
+                        ),
                       ),
                     ),
                   ),
@@ -65,15 +70,17 @@ class _OrdersState extends State<Orders> {
               ),
               // display orders
               Container(
-                height: 170,
+                height: 500,
                 padding: const EdgeInsets.only(
                   left: 10,
                   top: 20,
-                  right: 0,
+                  right: 10,
                 ),
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: orders!.length,
+                child: GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2, mainAxisSpacing: 5),
+                  itemCount: 2,
+                  physics: NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {

@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:splendid_mart/features/account/screens/all_orders.dart';
 import 'package:splendid_mart/features/account/services/account_services.dart';
 import 'package:splendid_mart/features/account/widgets/account_button.dart';
 
@@ -14,11 +14,9 @@ class TopButtons extends StatelessWidget {
           children: [
             AccountButton(
               text: 'Your Orders',
-              onTap: () {},
-            ),
-            AccountButton(
-              text: 'Turn Seller',
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, AllOrders.routeName);
+              },
             ),
           ],
         ),

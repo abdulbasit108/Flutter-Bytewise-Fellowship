@@ -1,7 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:splendid_mart/common/widgets/bottom_bar.dart';
+import 'package:splendid_mart/features/account/screens/all_orders.dart';
 import 'package:splendid_mart/features/admin/screens/add_product_screen.dart';
+import 'package:splendid_mart/features/admin/screens/admin_screen.dart';
 import 'package:splendid_mart/features/auth/screens/auth_screen.dart';
 import 'package:splendid_mart/features/home/screens/category_deals_screen.dart';
 import 'package:splendid_mart/features/home/screens/home_screen.dart';
@@ -26,13 +27,13 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         settings: routeSettings,
         builder: (_) => const HomeScreen(),
       );
-      
+
     case BottomBar.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
         builder: (_) => const BottomBar(),
       );
-      
+
     case AddProductScreen.routeName:
       return MaterialPageRoute(
         settings: routeSettings,
@@ -47,7 +48,7 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
           category: category,
         ),
       );
-      
+
     case SearchScreen.routeName:
       var searchQuery = routeSettings.arguments as String;
       return MaterialPageRoute(
@@ -80,6 +81,17 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
           order: order,
         ),
       );
+    case AllOrders.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const AllOrders(),
+      );
+    case AdminScreen.routeName:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const AdminScreen(),
+      );
+
     default:
       return MaterialPageRoute(
         settings: routeSettings,
