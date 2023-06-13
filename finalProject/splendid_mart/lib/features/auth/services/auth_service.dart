@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:splendid_mart/constants/error_handling.dart';
 import 'package:splendid_mart/constants/global_variables.dart';
 import 'package:splendid_mart/constants/utils.dart';
+import 'package:splendid_mart/features/admin/screens/admin_screen.dart';
 import 'package:splendid_mart/models/user.dart';
 import 'package:splendid_mart/providers/user_provider.dart';
 
@@ -79,11 +80,20 @@ class AuthService {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           Provider.of<UserProvider>(context, listen: false).setUser(res.body);
           await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
-          Navigator.pushNamedAndRemoveUntil(
-            context,
-            BottomBar.routeName,
-            (route) => false,
-          );
+          final user = Provider.of<UserProvider>(context, listen: false).user;
+          if (user.type == 'user') {
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              BottomBar.routeName,
+              (route) => false,
+            );
+          } else {
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              AdminScreen.routeName,
+              (route) => false,
+            );
+          }
         },
       );
     } catch (e) {
@@ -92,7 +102,7 @@ class AuthService {
   }
 
   // get user data
-  void getUserData(
+  Future<bool> getUserData(
     BuildContext context,
   ) async {
     try {
@@ -125,8 +135,10 @@ class AuthService {
         var userProvider = Provider.of<UserProvider>(context, listen: false);
         userProvider.setUser(userRes.body);
       }
+      return true;
     } catch (e) {
       showSnackBar(context, e.toString());
+      return false;
     }
   }
 }

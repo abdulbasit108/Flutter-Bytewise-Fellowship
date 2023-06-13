@@ -19,6 +19,7 @@ class AuthScreen extends StatefulWidget {
 
 class _AuthScreenState extends State<AuthScreen> {
   Auth _auth = Auth.signup;
+  String signinText = 'Sign In';
   final _signUpFormKey = GlobalKey<FormState>();
   final _signInFormKey = GlobalKey<FormState>();
   final AuthService authService = AuthService();
@@ -34,7 +35,7 @@ class _AuthScreenState extends State<AuthScreen> {
     _nameController.dispose();
   }
 
-  void signUpUser() {
+  void signUpUser() async {
     authService.signUpUser(
       context: context,
       email: _emailController.text,
@@ -54,7 +55,6 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50),
         child: AppBar(
@@ -192,10 +192,11 @@ class _AuthScreenState extends State<AuthScreen> {
                         ),
                         const SizedBox(height: 10),
                         CustomButton(
-                            text: 'Sign In',
+                            text: signinText,
                             onTap: () {
                               if (_signInFormKey.currentState!.validate()) {
                                 signInUser();
+                                signinText = 'Loading';
                               }
                             },
                             color: GlobalVariables.secondaryColor)

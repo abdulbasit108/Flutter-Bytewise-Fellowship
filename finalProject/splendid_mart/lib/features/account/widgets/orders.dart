@@ -70,7 +70,7 @@ class _OrdersState extends State<Orders> {
               ),
               // display orders
               Container(
-                height: 500,
+                height: 300,
                 padding: const EdgeInsets.only(
                   left: 10,
                   top: 20,
