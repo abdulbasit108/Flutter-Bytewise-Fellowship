@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:photo_app/main.dart';
 import 'package:photo_app/screens/photo_feed_screen.dart';
 import 'package:photo_app/screens/sign_up_screen.dart';
-import 'package:slide_to_act/slide_to_act.dart';
+// import 'package:slide_to_act/slide_to_act.dart';
 
 import '../utils/utils.dart';
 
@@ -15,8 +15,8 @@ class SignInScreen extends StatefulWidget {
   State<SignInScreen> createState() => _SignInScreenState();
 }
 
-final GlobalKey<SlideActionState> slideActionKey =
-    GlobalKey<SlideActionState>();
+// final GlobalKey<SlideActionState> slideActionKey =
+//     GlobalKey<SlideActionState>();
 
 class _SignInScreenState extends State<SignInScreen> {
   final _formkey = GlobalKey<FormState>();
@@ -46,14 +46,14 @@ class _SignInScreenState extends State<SignInScreen> {
     }).onError((error, stackTrace) {
       debugPrint(error.toString());
       Utils().toastMessage(error.toString());
-      slideActionKey.currentState?.reset();
+      // slideActionKey.currentState?.reset();
     });
   }
 
   @override
   Widget build(BuildContext context) {
     final topPadding = MediaQuery.of(context).padding.top;
-    slideActionKey.currentState?.reset();
+    // slideActionKey.currentState?.reset();
 
     return WillPopScope(
       onWillPop: () async {
@@ -172,54 +172,35 @@ class _SignInScreenState extends State<SignInScreen> {
                       SizedBox(
                         height: 10,
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(25.0),
-                        child: SlideAction(
-                          key: slideActionKey,
-                          elevation: 0,
-                          borderRadius: 30,
-                          outerColor: Color.fromRGBO(120, 37, 139, 1),
-                          sliderButtonIcon: Icon(Icons.lock_open),
-                          text: 'Slide to Login',
-                          textStyle: TextStyle(fontSize: 18),
-                          onSubmit: () {
-                            if (_formkey.currentState!.validate()) {
-                              login();
-                            } else {
-                              slideActionKey.currentState?.reset();
-                            }
-                          },
-                        ),
+                      Container(
+                        height: 55,
+                        width: 330,
+                        decoration: BoxDecoration(
+                            color: Color.fromRGBO(120, 37, 139, 1),
+                            borderRadius: BorderRadius.circular(30)),
+                        child: TextButton(
+                            onPressed: () {
+                      if (_formkey.currentState!.validate()) {
+                        login();
+                      }
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Sign In',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: Colors.white,
+                                )
+                              ],
+                            )),
                       ),
-                      // Container(
-                      //   height: 55,
-                      //   width: 330,
-                      //   decoration: BoxDecoration(
-                      //       color: Color.fromRGBO(120, 37, 139, 1),
-                      //       borderRadius: BorderRadius.circular(30)),
-                      //   child: TextButton(
-                      //       onPressed: () {
-                      // if (_formkey.currentState!.validate()) {
-                      //   login();
-                      // }
-                      //       },
-                      //       child: Row(
-                      //         mainAxisAlignment: MainAxisAlignment.center,
-                      //         children: [
-                      //           Text(
-                      //             'Sign In',
-                      //             style: TextStyle(
-                      //                 color: Colors.white,
-                      //                 fontSize: 18,
-                      //                 fontWeight: FontWeight.bold),
-                      //           ),
-                      //           Icon(
-                      //             Icons.arrow_forward_ios,
-                      //             color: Colors.white,
-                      //           )
-                      //         ],
-                      //       )),
-                      // ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
